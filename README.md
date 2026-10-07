@@ -19,7 +19,7 @@
 - 支持 Base64 订阅文本自动展开
 - 支持 `host[:port][#remark]` 格式的优选地址
 - 结果写入 Workers KV，生成 `/sub/:id` 短链
-- 相同输入自动去重（7 天 TTL）
+- 相同输入自动去重（30 天 TTL）
 - 支持 `SUB_ACCESS_TOKEN` 访问令牌保护
 - 支持导出：Raw（Base64）/ Clash（YAML）/ Surge（文本）
 
@@ -171,7 +171,7 @@ curl "https://<worker>/sub/<id>?target=clash&token=<SUB_ACCESS_TOKEN>"
 ## 注意事项
 
 - `src/worker.js` 当前是 KV 短链方案，不依赖 `SUB_LINK_SECRET`
-- 每条订阅记录默认保存 7 天（TTL）
+- 每条订阅记录默认保存 30 天（TTL）
 - Surge 导出当前仅包含 `vmess` / `trojan`
 
 ## License

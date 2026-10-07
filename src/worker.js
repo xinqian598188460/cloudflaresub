@@ -468,7 +468,7 @@ async function handleGenerate(request, env, url) {
 
   if (!id) {
     id = await createUniqueShortId(env);
-    const ttl = 60 * 60 * 24 * 7; // 7天
+    const ttl = 60 * 60 * 24 * 30; // 30天
 
     await env.SUB_STORE.put(`sub:${id}`, JSON.stringify(payload), {
       expirationTtl: ttl,
