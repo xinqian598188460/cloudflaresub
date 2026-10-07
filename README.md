@@ -17,7 +17,7 @@
 
 - 支持 `vmess`、`vless`、`trojan` 节点解析
 - 支持 Base64 订阅文本自动展开
-- 支持 `host[:port][#remark]` 格式的优选地址
+- 支持可选的 `host[:port][#remark]` 格式优选地址；留空时保留原节点地址
 - 结果写入 Workers KV，生成 `/sub/:id` 短链
 - 相同输入自动去重（30 天 TTL）
 - 支持 `SUB_ACCESS_TOKEN` 访问令牌保护
@@ -97,7 +97,7 @@ cloudflaresub/
 
 - 打开 Worker 域名（如 `https://<name>.<subdomain>.workers.dev`）
 - 访问首页 `/`，应看到前端表单
-- 在页面输入节点和优选地址，点击生成
+- 在页面输入节点，可选填写优选地址，然后点击生成
 - 拿到 `/sub/:id` 后测试：
   - `?target=raw&token=...`
   - `?target=clash&token=...`
@@ -112,7 +112,7 @@ cloudflaresub/
 
 ### `POST /api/generate`
 
-输入原始节点与优选地址，返回短链订阅。
+输入原始节点与可选的优选地址，返回短链订阅。
 
 请求体示例：
 
@@ -127,7 +127,7 @@ cloudflaresub/
 
 字段说明：
 - `nodeLinks`: 多行节点链接
-- `preferredIps`: 多行优选地址，格式 `host[:port][#remark]`
+- `preferredIps`: 可选，多行优选地址，格式 `host[:port][#remark]`；留空时保留原节点地址
 - `namePrefix`: 节点名附加前缀
 - `keepOriginalHost`: 是否保留原始 Host/SNI（默认 `true`）
 
@@ -163,7 +163,7 @@ curl "https://<worker>/sub/<id>?target=clash&token=<SUB_ACCESS_TOKEN>"
 
 根路径 `/` 提供网页表单（来自 `public/`）：
 - 粘贴节点链接
-- 粘贴优选 IP / 域名
+- 可选粘贴优选 IP / 域名（留空时保留原节点地址）
 - 生成并展示各客户端订阅链接
 - 一键复制 / 生成二维码
 

@@ -115,7 +115,7 @@ export function parseNodeLinks(inputText) {
 export function parsePreferredEndpoints(inputText) {
   const items = splitCsvLike(inputText);
   if (!items.length) {
-    throw new Error('请至少填写 1 个优选 IP 或优选域名。');
+    return { endpoints: [], warnings: [] };
   }
 
   const endpoints = [];
@@ -148,6 +148,17 @@ export function expandNodes(baseNodes, endpoints, options = {}) {
   const namePrefix = String(options.namePrefix || '').trim();
   const warnings = [];
   const expanded = [];
+
+  if (!endpoints.length) {
+    return {
+      nodes: baseNodes.map((baseNode) => {
+        const clone = deepClone(baseNode);
+        if (namePrefix) clone.name = buildNodeName(baseNode.name, namePrefix);
+        return clone;
+      }),
+      warnings,
+    };
+  }
 
   baseNodes.forEach((baseNode) => {
     const originalTlsHost = getEffectiveTlsHost(baseNode);

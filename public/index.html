@@ -46,7 +46,7 @@
           </div>
 
           <div>
-            <label for="preferredIps">2. 粘贴优选 IP / 优选域名</label>
+            <label for="preferredIps">2. 粘贴优选 IP / 优选域名（可选）</label>
             <textarea
               id="preferredIps"
               name="preferredIps"
@@ -55,10 +55,9 @@
 104.16.1.2#HK-01
 104.17.2.3:2053#HK-02
 cf.example.com:443#US-Edge"
-              required
             ></textarea>
             <p class="hint">
-              支持 <code>IP</code>、<code>IP:端口</code>、<code>域名</code>、<code>域名:端口</code>，<code>#</code> 后面可写备注。
+              留空时保留原节点地址；填写后支持 <code>IP</code>、<code>IP:端口</code>、<code>域名</code>、<code>域名:端口</code>，<code>#</code> 后面可写备注。
             </p>
           </div>
 
@@ -82,7 +81,7 @@ cf.example.com:443#US-Edge"
         <aside class="card stack-md tips">
           <h2>说明</h2>
           <ul>
-            <li>不会帮你找优选 IP，只负责把你现成的优选 IP 替换进节点。</li>
+            <li>优选地址可以留空；填写时只会把你现成的优选 IP 替换进节点。</li>
             <li>生成的链接是“同一份节点内容”的不同导出格式，分别给不同客户端使用。</li>
             <li>推荐勾选“保留原 Host / SNI”，这样更适合 Cloudflare CDN 场景。</li>
             <li>订阅链接里的节点信息会通过服务端密钥加密，请不要把链接公开分享。</li>
@@ -112,7 +111,7 @@ cf.example.com:443#US-Edge"
         <div id="warningBox" class="warning hidden"></div>
 
         <div id="emptyState" class="empty-state">
-          还没有生成订阅。请先填写节点链接和优选 IP，然后点击“生成订阅”。
+          还没有生成订阅。请填写节点链接，然后点击“生成订阅”。
         </div>
 
         <div id="statsGrid" class="stats-grid">

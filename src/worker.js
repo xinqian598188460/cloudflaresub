@@ -133,6 +133,14 @@ function parseRawLinks(input) {
 function buildNodes(baseNodes, preferredEndpoints, options = {}) {
   const output = [];
   const prefix = (options.namePrefix || '').trim();
+
+  if (!preferredEndpoints.length) {
+    return baseNodes.map((node) => ({
+      ...node,
+      name: [node.name, prefix].filter(Boolean).join(' | '),
+    }));
+  }
+
   let counter = 0;
   for (const node of baseNodes) {
     for (const ep of preferredEndpoints) {
@@ -445,7 +453,6 @@ async function handleGenerate(request, env, url) {
   const preferredEndpoints = parsePreferredEndpoints(body.preferredIps || '');
 
   if (!baseNodes.length) return json({ ok: false, error: '没有识别到可用节点' }, 400);
-  if (!preferredEndpoints.length) return json({ ok: false, error: '没有识别到可用优选地址' }, 400);
 
   const options = {
     namePrefix: body.namePrefix || '',
